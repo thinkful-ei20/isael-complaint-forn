@@ -1,10 +1,12 @@
 import React from 'react';
 
-export default function StaticForm(props){
+import {reduxForm, Field} from 'redux-form';
+
+export function StaticForm(props){
     return (
         <form>
             <label htmlFor='trackingNumber'>Tracking Number</label>
-            <input type='text' name='trakingNumber' id='trackingNumber' />
+            <Field type='text' name='trakingNumber' id='trackingNumber' component='input'/>
             <select name='issue' id='issue'>
                 <option value={'My delivery hasn\'t arrived'}>My delivery hasn't arrived</option>
                 <option value='The wrong item was delivered'>The wrong item was delivered</option>
@@ -13,6 +15,11 @@ export default function StaticForm(props){
             </select>
             <label htmlFor="textarea">Give more details (optional)</label>
             <textarea></textarea>
+            <button></button>
         </form>
     );
 }
+
+export default reduxForm({
+    form: 'contact'
+})(StaticForm);
