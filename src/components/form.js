@@ -1,25 +1,34 @@
 import React from 'react';
 
-import {reduxForm, Field} from 'redux-form';
+export default class Input extends React.Component{
+    
+    
 
-export function StaticForm(props){
-    return (
-        <form>
-            <label htmlFor='trackingNumber'>Tracking Number</label>
-            <Field type='text' name='trakingNumber' id='trackingNumber' component='input'/>
-            <select name='issue' id='issue'>
-                <option value={'My delivery hasn\'t arrived'}>My delivery hasn't arrived</option>
-                <option value='The wrong item was delivered'>The wrong item was delivered</option>
-                <option value='Part of my order was missing'>Part of my order was missing</option>
-                <option value='Some of my order arrived damaged'>Some of my order arrived damaged</option>
-            </select>
-            <label htmlFor="textarea">Give more details (optional)</label>
-            <textarea></textarea>
-            <button></button>
-        </form>
-    );
+    render() {
+        let error;
+        
+        if(this.props.meta.touched && this.props.meta.error){
+            error = <div>{this.props.meta.error}</div>
+        }
+        const Element =  this.props.element || 'input';
+        // console.log(this.props.label)
+
+        return (
+            <div >
+                <label htmlFor={this.props.name}>
+                    {this.props.label}
+                    {error}
+                </label>
+                <Element
+                    {...this.props.input}
+                    id={this.props.input.name}
+                    type={this.props.type}
+                    ref={input => (this.input = input)}
+                >
+                    {this.props.children}
+                </Element>
+            </div>
+        );
+    }
 }
 
-export default reduxForm({
-    form: 'contact'
-})(StaticForm);
